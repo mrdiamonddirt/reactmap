@@ -160,15 +160,20 @@ const MapChart = () => {
                     default: {
                       fill: "green",
                       stroke: "black",
-                      strokeWidth: "0.1px"
+                      strokeWidth: "0.05px",
+                      outline: "none"
                     },
                     hover: {
                       fill: "#F53",
+                      outline: "none"
+
                     },
                     pressed: {
-                      fill: "#E42",
+                      fill: "black",
                       stroke: "red",
-                      strokeWidth: "0.1px"
+                      strokeWidth: "0.05px",
+                      outline: "none"
+
                     },
                   }}
                   onMouseEnter={() => {
@@ -182,9 +187,9 @@ const MapChart = () => {
               ))
             }
           </Geographies>
-          <Marker coordinates={[-3, 55]}>
+          {/* <Marker coordinates={[-3, 55]}>
             <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
-          </Marker>
+          </Marker> */}
           <Marker coordinates={[-0.5, 52]}>
             <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
           </Marker>
