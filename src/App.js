@@ -12,6 +12,16 @@ import {
 } from "react-simple-maps";
 import Modal from "react-modal";
 
+const markers = [
+  {
+    markerOffset: -15,
+    name: "United Kingdom",
+    markerOffset: '-45px',
+    coordinates: [-10.1193, 51.4897]
+  },
+  // { markerOffset: -1, name: "London", fontSize:'1px', coordinates: [-0.1193, 51.4897] }
+];
+
 const customStyles = {
   content: {
     top: "50%",
@@ -161,7 +171,7 @@ const MapChart = () => {
                       fill: "green",
                       stroke: "black",
                       strokeWidth: "0.05px",
-                      outline: "none"
+                      outline: "none",
                     },
                     hover: {
                       fill: "#F53",
@@ -187,12 +197,17 @@ const MapChart = () => {
               ))
             }
           </Geographies>
-          {/* <Marker coordinates={[-3, 55]}>
-            <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
-          </Marker> */}
-          <Marker coordinates={[-0.5, 52]}>
-            <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
-          </Marker>
+          {markers.map(({ name, coordinates, markerOffset }) => (
+        <Marker key={name} coordinates={coordinates}>
+          <circle r={0.1} fill="#F00" stroke="#fff" strokeWidth={0.01} />
+          <text
+            textAnchor="middle"
+            y={markerOffset}
+            style={{ fontSize:'5px', userSelect:'none', fontFamily: "system-ui", fill: "#5D5A6D" }}
+          >
+            {name}
+          </text>
+        </Marker> ))}
         </ZoomableGroup>
       </ComposableMap>
     </div>
