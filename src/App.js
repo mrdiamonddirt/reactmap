@@ -4,7 +4,7 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
-  Marker
+  Marker,
 } from "react-simple-maps";
 
 const geoUrl =
@@ -23,7 +23,10 @@ const MapChart = () => {
             }
           </Geographies>
           <Marker coordinates={[-3, 55]}>
-            <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
+          <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
+          </Marker>
+          <Marker coordinates={[-0.5, 52]}>
+          <circle r={2} fill="rgba(245, 40, 145, 0.8)" />
           </Marker>
         </ZoomableGroup>
       </ComposableMap>
