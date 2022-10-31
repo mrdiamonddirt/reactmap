@@ -10,8 +10,16 @@ html {
   flex-direction: column;
   font-family: system-ui, sans-serif;
   font-size: 1.25rem;
+  border: none;
 }
-
+.description{
+  font-size: 5px;
+}
+.infoBtn{
+  position: fixed;
+  top: 25px;
+  right: 25px;
+}
 body {
   margin: 0;
   padding: 0 1.5rem;
