@@ -8,7 +8,6 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
-  scaleExtent,
   Marker,
 } from "react-simple-maps";
 import Modal from "react-modal";
@@ -50,7 +49,6 @@ const MapChart = () => {
       // setPoliceInfo(error.msg)
       console.log(error)
     }
-    
   }
   const [position, setPosition] = useState({ coordinates: [-3, 55], zoom: 8 });
   function handleZoomIn() {
