@@ -6,6 +6,7 @@
 ![Screenshot](./screenshots/Screenshot_2.png)
 ![Screenshot](./screenshots/Screenshot_3.png)
 
+also uses react-Modal
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

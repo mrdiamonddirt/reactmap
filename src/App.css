@@ -13,9 +13,15 @@ html {
   font-family: system-ui, sans-serif;
   font-size: 1.25rem;
   border: none;
+  background-color: lightgray;
 }
 .description{
-  font-size: 5px;
+  position: fixed;
+  bottom: 0;
+  height: 200px;
+  transform: translateX(120px);
+  font-size: 10px;
+  width: 90vh;
 }
 .infoBtn{
   position: fixed;
@@ -36,9 +42,10 @@ body {
   display: flex;
 }
 svg {
-  display: inline-block;
+  display: flex;
+  top: 0;
   vertical-align: middle;
-  background-color: aqua;
+  background-color: lightblue;
   border: 1px solid black;
   width: 80vh;
 }

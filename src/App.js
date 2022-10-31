@@ -216,7 +216,7 @@ const MapChart = () => {
       <p key={'loc'}>{location}</p>
       {/* <p>{selectedCounty}</p> */}
       <div className="description">
-      {/* {policeInfo.description} */}
+      {policeInfo.description}
       {policeInfo.url}
       </div>
     </div>
