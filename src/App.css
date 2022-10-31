@@ -108,3 +108,105 @@ h6{
   padding: 0;
   margin: 10px;
 }
+
+ /*Any Mobile Device*/
+ @media only screen and (max-width: 767px) { }
+ .mapContainer{
+  display: flex;
+  top: 5%;
+  left: 5%;
+  padding-top: 15px;
+  width:95%;
+  position: fixed;
+  justify-items: center;
+  }
+  .infoTab{
+    display: flex;
+  flex-direction: column;
+  left: 0;
+  height: 200px;
+  width: 100vw;
+  }
+ /*Tablets Device*/
+@media only screen and (max-width: 991px) { }
+ /*ipad Pro  Device*/
+ .mapContainer{
+  display: flex;
+  top: 5%;
+  left: calc(5% - 10px);
+  padding: 0;
+  margin: 0;
+  padding-top: 5px;
+  width:90%;
+  position: fixed;
+  justify-items: center;
+  }
+  .infoTab{
+    display: flex;
+  flex-direction: column;
+  bottom: 35%;
+  left: 0;
+  height: 200px;
+  width: 100vw;
+  }
+@media only screen and (max-width: 1024px) { }
+ /*large  Device*/
+ /*ipad Pro  Device*/
+ .mapContainer{
+  display: flex;
+  top: 5%;
+  left: calc(5% - 10px);
+  padding: 0;
+  margin: 0;
+  padding-top: 5px;
+  width:90%;
+  position: fixed;
+  justify-items: center;
+  }
+  .infoTab{
+    display: flex;
+  flex-direction: column;
+  bottom: 48%;
+  left: 0;
+  height: 200px;
+  width: 100vw;
+  }
+@media only screen and (max-width: 1200px) { }
+.mapContainer{
+  display: flex;
+  top: 10%;
+  left: 0;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  }
+.infoTab{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 20%;
+  left: 0;
+  height: 100px;
+  width: 100vw;
+}
+@media only screen and (max-width: 425px){
+	/*Small smartphones [325px -> 425px]*/
+  .mapContainer{
+    display: flex;
+    top: 5%;
+    left: 0;
+    padding-top: 15px;
+    width:90%;
+    position: fixed;
+    justify-items: center;
+    }
+    .infoTab{
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      bottom: 50%;
+      left: 0;
+      height: 100px;
+      width: 100vw;
+    }
+}
