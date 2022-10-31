@@ -158,6 +158,7 @@ const MapChart = () => {
         <p key="modalloc" className={'modalloc'}>{location}</p>
         <p>{policeInfo.url}</p>
         <p>{policeInfo.name}</p></Modal>
+        <div className="mapContainer">
       <ComposableMap projection="geoMercator">
         <ZoomableGroup center={position.coordinates} zoom={position.zoom} onMoveEnd={handleMoveEnd}>
           <Geographies geography={geoUrl} fill="rgba(0, 139, 1, 1)">
@@ -210,14 +211,15 @@ const MapChart = () => {
         </Marker> ))}
         </ZoomableGroup>
       </ComposableMap>
+      </div>
     </div>
-    <div>
+    <div className="infoTab">
       <h5>Info</h5>
-      <p key={'loc'}>{location}</p>
+      <h6 key={'loc'}>{location}</h6>
       {/* <p>{selectedCounty}</p> */}
       <div className="description">
       {policeInfo.description}
-      {policeInfo.url}
+      {/* {policeInfo.url} */}
       </div>
     </div>
     <div className="controls">

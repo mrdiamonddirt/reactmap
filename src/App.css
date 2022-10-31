@@ -16,12 +16,16 @@ html {
   background-color: lightgray;
 }
 .description{
-  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  right: 25%;
+  /* position: fixed; */
   bottom: 0;
-  height: 200px;
-  transform: translateX(120px);
-  font-size: 10px;
-  width: 90vh;
+  /* transform: translateX(120px); */
+  font-size: 15px;
+  width:95%;
+  padding: 10px;
 }
 .infoBtn{
   position: fixed;
@@ -43,13 +47,21 @@ body {
 }
 svg {
   display: flex;
-  top: 0;
+  justify-content: center;
+  align-items: center;
+  /* top: 0; */
   vertical-align: middle;
   background-color: lightblue;
   border: 1px solid black;
   width: 80vh;
 }
-
+.mapContainer{
+display: flex;
+top: 10%;
+left: 25%;
+position: fixed;
+justify-items: center;
+}
 .controls {
   display: flex;
   position: fixed;
@@ -78,4 +90,21 @@ svg {
 text{
   user-select: none;
   font-size: larger;
+}
+.infoTab{
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  bottom: 20%;
+  left: 0;
+  height: 100px;
+  width: 100vw;
+}
+h5{
+  padding: 0;
+  margin: 10px;
+}
+h6{
+  padding: 0;
+  margin: 10px;
 }
