@@ -33,7 +33,7 @@ const MapChart = () => {
     console.log(geo);
     console.log(geo.properties.NAME_2);
     updateLocation(geo.properties.NAME_2);
-    openModal()
+    // openModal()
     returnPoliceForce()
   }
 
@@ -50,13 +50,16 @@ const MapChart = () => {
     let locationLC = location.toLowerCase();
     for (let i = 0; i <  policedata.length; i++) {
       // console.log(policedata[i])
-      if (locationLC === policedata[i]) {
+      if (locationLC === policedata[i].id) {
         console.log('match')
+        console.log(`returned ${locationLC}`)
+        console.log(`returned police data id = ${policedata[i].id}`)
+        console.log(`returned police data id = ${policedata[i].name}`)
+
       } else {
         console.log('no match')
         console.log(`returned ${locationLC}`)
         console.log(`returned police data id = ${policedata[i].id}`)
-
       }
       
     }
@@ -72,6 +75,7 @@ const MapChart = () => {
   }
 
   useEffect(() => {
+    returnPoliceForce()
     const fetchPoliceData = async () => {
       try {
         const response = await fetch(
@@ -100,13 +104,13 @@ const MapChart = () => {
         // onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <p className="modelheader" >County Info</p>
-        <p>{location}</p>
+        contentLabel="Example Modal">
+        <h2 className="modelheader" >County Info</h2>
+        <p className={'modalloc'}>{location}</p>
+        {/* <p className={'modalloc2'}>{policedata}</p> */}
       </Modal>
       <ComposableMap projection="geoMercator">
-        <ZoomableGroup center={[0, 50]} zoom={9}>
+        <ZoomableGroup center={[-3, 55]} zoom={10}>
           <Geographies geography={geoUrl} fill="rgba(0, 139, 1, 1)">
             {({ geographies }) =>
               geographies.map((geo) => (
