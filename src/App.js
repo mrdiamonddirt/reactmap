@@ -8,6 +8,7 @@ import {
   Geographies,
   Geography,
   ZoomableGroup,
+  scaleExtent,
   Marker,
 } from "react-simple-maps";
 import Modal from "react-modal";
@@ -38,7 +39,12 @@ const MapChart = () => {
     try {
       const response = await fetch(`https://data.police.uk/api/forces/${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}`)
     const data = await response.json()
-    // console.log(data)
+    console.log(data)
+    for (let j=0; j< data.engagement_methods.length; j++)
+    {
+      setengagementMethods(data.engagement_methods.url + data.engagement_methods[j].url)
+      console.log(engagementMethods)
+    }
     setPoliceInfo(data)
     } catch (error) {
       // setPoliceInfo(error.msg)
@@ -46,12 +52,27 @@ const MapChart = () => {
     }
     
   }
+  const [position, setPosition] = useState({ coordinates: [-3, 55], zoom: 8 });
+  function handleZoomIn() {
+    if (position.zoom >= 60) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom * 4 }));
+  }
+
+  function handleZoomOut() {
+    if (position.zoom <= 20) return;
+    setPosition((pos) => ({ ...pos, zoom: pos.zoom - 2 }));
+  }
+
+  function handleMoveEnd(position) {
+    setPosition(position);
+  }
 
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [location, updateLocation] = useState("");
   const [policedata, setPoliceData] = useState([])
   const [policeInfo, setPoliceInfo] = useState({})
+  const [engagementMethods, setengagementMethods] = useState({})
 
   function openModal() {
     setIsOpen(true);
@@ -76,7 +97,6 @@ const MapChart = () => {
         console.log(`returned ${locationLC}`)
         console.log(`returned police data id = ${policedata[i].id}`)
         updateCounty("unable to find")
-
       }
       
     }
@@ -130,9 +150,8 @@ const MapChart = () => {
         <p key="modalloc" className={'modalloc'}>{location}</p>
         <p>{policeInfo.url}</p>
         <p>{policeInfo.name}</p></Modal>
-
       <ComposableMap projection="geoMercator">
-        <ZoomableGroup center={[-3, 55]} zoom={10}>
+        <ZoomableGroup center={position.coordinates} zoom={position.zoom} onMoveEnd={handleMoveEnd}>
           <Geographies geography={geoUrl} fill="rgba(0, 139, 1, 1)">
             {({ geographies }) =>
               geographies.map((geo) => (
@@ -183,6 +202,33 @@ const MapChart = () => {
       {policeInfo.url}
       </div>
     </div>
+    <div className="controls">
+        <button onClick={handleZoomIn}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+        <button onClick={handleZoomOut}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="3"
+          >
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+        </button>
+      </div>
     </>
   );
 };
