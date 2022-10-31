@@ -47,16 +47,18 @@ const MapChart = () => {
   }
 
   function returnPoliceForce() {
+    let locationLC = location.toLowerCase();
     for (let i = 0; i <  policedata.length; i++) {
-      console.log(policedata[i])
-      if (location === policedata[i]) {
+      // console.log(policedata[i])
+      if (locationLC === policedata[i]) {
         console.log('match')
       } else {
         console.log('no match')
-        console.log(location)
-        console.log(`${policedata[i].id}`)
+        console.log(`returned ${locationLC}`)
+        console.log(`returned police data id = ${policedata[i].id}`)
 
       }
+      
     }
     
   }
