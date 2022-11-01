@@ -15,14 +15,24 @@ import Modal from "react-modal";
 const markers = [
   {
     markerOffset: -15,
-    name: "United Kingdom",
+    name: "London",
     markerOffset: '-45px',
-    coordinates: [-10.1193, 51.4897]
+    coordinates: [-0.118092,  51.509865]
   },
-  { markerOffset: 15, name: "London", fontSize:'1px', coordinates: [-0.118092, 51.509865] },
+  { markerOffset: 15, name: "Portsmouth", fontSize:'1px', coordinates: [-1.087222, 50.805832] },
   { markerOffset: -25, name: "York", fontSize:'1px', coordinates: [-1.080278, 	53.958332] },
   { markerOffset: 10, name: "Lancaster", fontSize:'1px', coordinates: [-2.801000, 54.047001] },
-  { markerOffset: 15, name: "Edinburgh", fontSize:'1px', coordinates: [-3.188267, 55.953251] }
+  { markerOffset: 15, name: "Edinburgh", fontSize:'1px', coordinates: [-3.188267, 55.953251] },
+  { markerOffset: 15, name: "Inverness", fontSize:'1px', coordinates: [-4.224721, 57.477772] },
+  { markerOffset: 15, name: "Birmingham", fontSize:'1px', coordinates: [-1.898575, 52.489471] },
+  { markerOffset: 15, name: "Bristol", fontSize:'1px', coordinates: [	-2.587910, 51.454514] },
+  { markerOffset: 15, name: "Manchester", fontSize:'1px', coordinates: [-2.244644, 53.483959] },
+  { markerOffset: 15, name: "Carlisle", fontSize:'1px', coordinates: [-2.944000, 54.890999] },
+  { markerOffset: 15, name: "Glasgow", fontSize:'1px', coordinates: [-4.251433,	55.860916] },
+  { markerOffset: 15, name: "Belfast", fontSize:'1px', coordinates: [-5.926437,	54.607868] },
+  { markerOffset: 15, name: "Cardiff", fontSize:'1px', coordinates: [-3.179090, 51.481583] },
+
+
 ];
 
 const customStyles = {
@@ -109,7 +119,7 @@ const MapChart = () => {
  const [selectedCounty, updateCounty] = useState("")
  
   function returnPoliceForce(currentloc) {
-    let locationLC = currentloc.toLowerCase();
+    let locationLC = currentloc.toLowerCase().split(' ').join('-');
     for (let i = 0; i <  policedata.length; i++) {
       // console.log(policedata[i])
       if (locationLC === policedata[i].id) {
@@ -240,7 +250,7 @@ const MapChart = () => {
           <text 
             textAnchor="middle"
             y={markerOffset}
-            style={{fontFamily: "system-ui", fill: "#5D5A6D", pointerEvents: 'none'}}
+            style={{fontFamily: "system-ui", fill: "white", fontSize:'12px', pointerEvents: 'none'}}
           >
             {name}
           </text>
@@ -253,7 +263,7 @@ const MapChart = () => {
       <h5>Info</h5>
       <h6>Country: {country}</h6>
       <h6 key={'loc'}>County: {location}</h6>
-      <h6>Country: {selectedCounty}</h6>
+      <h6>County Force: {selectedCounty}</h6>
       <div className="description">
       {policeInfo === 'no data' ? <div>force not found</div>:<div>{policeInfo.description}</div>}
       {/* {policeInfo.description} */}
