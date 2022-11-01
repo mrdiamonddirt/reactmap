@@ -19,7 +19,10 @@ const markers = [
     markerOffset: '-45px',
     coordinates: [-10.1193, 51.4897]
   },
-  // { markerOffset: -1, name: "London", fontSize:'1px', coordinates: [-0.1193, 51.4897] }
+  { markerOffset: 15, name: "London", fontSize:'1px', coordinates: [-0.118092, 51.509865] },
+  { markerOffset: -25, name: "York", fontSize:'1px', coordinates: [-1.080278, 	53.958332] },
+  { markerOffset: 10, name: "Lancaster", fontSize:'1px', coordinates: [-2.801000, 54.047001] },
+  { markerOffset: 15, name: "Edinburgh", fontSize:'1px', coordinates: [-3.188267, 55.953251] }
 ];
 
 const customStyles = {
@@ -179,7 +182,10 @@ const MapChart = () => {
         {crimenum === 0 ? <p>not on file</p>:<p>Crimes Reported = {crimenum}</p>}
         </Modal>
         <div className="mapContainer">
-      <ComposableMap projection="geoMercator">
+      <ComposableMap projection="geoMercator" projectionConfig={{
+        // rotate: [58, 20, 0],
+        scale: 2000
+      }}>
         <ZoomableGroup center={position.coordinates} zoom={position.zoom} onMoveEnd={handleMoveEnd}>
           <Geographies geography={geoUrl} fill="rgba(0, 139, 1, 1)">
             {({ geographies }) =>
@@ -191,7 +197,7 @@ const MapChart = () => {
                     default: {
                       fill: "green",
                       stroke: "black",
-                      strokeWidth: "0.05px",
+                      strokeWidth: "0.5px",
                       outline: "none",
                     },
                     hover: {
@@ -202,7 +208,7 @@ const MapChart = () => {
                     pressed: {
                       fill: "black",
                       stroke: "red",
-                      strokeWidth: "0.05px",
+                      strokeWidth: "0.5px",
                       outline: "none"
 
                     },
@@ -220,11 +226,21 @@ const MapChart = () => {
           </Geographies>
           {markers.map(({ name, coordinates, markerOffset }) => (
         <Marker key={name} coordinates={coordinates}>
-          <circle r={0.1} fill="#F00" stroke="#fff" strokeWidth={0.01} />
-          <text
+          <g
+            fill="none"
+            stroke="#FF5533"
+            strokeWidth="1"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            transform="translate(-12, -24)"
+          >
+            <circle cx="12" cy="10" r="3" />
+            <path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 6.9 8 11.7z" />
+          </g>
+          <text 
             textAnchor="middle"
             y={markerOffset}
-            style={{ fontSize:'5px', userSelect:'none', fontFamily: "system-ui", fill: "#5D5A6D" }}
+            style={{fontFamily: "system-ui", fill: "#5D5A6D", pointerEvents: 'none'}}
           >
             {name}
           </text>
