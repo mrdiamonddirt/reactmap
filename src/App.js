@@ -47,7 +47,14 @@ const MapChart = () => {
 
 
   const [city, setcity] = useState('')
-  async function markerOnClick(name){
+  const [coords, setcoords] = useState('')
+  async function markerOnClick(name, coordinates){
+    setcoords(coordinates)
+    console.log(coords.length)
+    console.log(coords)
+    let coords2 = coords.toString().split(",").reverse().join()
+    console.log(coords2)
+    setcoords(coords2)
     console.log(name)
     returnPoliceForce(name)
     setcity(name)
@@ -65,12 +72,16 @@ const MapChart = () => {
     // openModal()
     returnPoliceForce(geo.properties.NAME_2)
     try {
-      const response = await fetch(`https://data.police.uk/api/forces/${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}`)
+    const response = await fetch(`https://data.police.uk/api/forces/${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}`)
     const data = await response.json()
 
     const response2 = await fetch(`https://data.police.uk/api/crimes-no-location?category=all-crime&force=${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}&date=2022-08`)
     const data2 = await response2.json()
-    // console.log(`data2 `, data2)
+
+    // const response3 = await fetch(`https://data.police.uk/api/locate-neighbourhood?q=51.500617,-0.124629`)
+    // const data3 = await response3.json()
+    
+    // console.log(`data3 `, data3)
     let crimesreported = data2.length
     console.log(crimesreported)
     setcrimenum(crimesreported)
@@ -242,11 +253,11 @@ const MapChart = () => {
             }
           </Geographies>
           {markers.map(({ name, coordinates, markerOffset }) => (
-        <Marker key={name} coordinates={coordinates} onClick={() => markerOnClick(name)}>
+        <Marker key={name} coordinates={coordinates} onClick={() => markerOnClick(name, coordinates)}>
           <g
             fill="none"
             stroke="#FF5533"
-            strokeWidth="1"
+            strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
             transform="translate(-12, -24)"
