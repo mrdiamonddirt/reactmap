@@ -39,15 +39,30 @@ const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/countries/united-kingdom/uk-counties.json";
 
 const MapChart = () => {
+  const [crimenum, setcrimenum] = useState('')
+
   async function onclick(geo) {
     console.log(geo);
-    console.log(geo.properties.NAME_2);
+    // console.log(geo.properties.NAME_2);
     updateLocation(geo.properties.NAME_2);
+    updateCountry(geo.properties.NAME_1);
+    // console.log(geo.properties.NAME_0);
+    updateType(geo.properties.TYPE_2)
+    console.log(geo.properties.NAME_1);
+    // console.log(geo.properties.TYPE_2);
     // openModal()
     returnPoliceForce(geo.properties.NAME_2)
     try {
       const response = await fetch(`https://data.police.uk/api/forces/${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}`)
     const data = await response.json()
+
+    const response2 = await fetch(`https://data.police.uk/api/crimes-no-location?category=all-crime&force=${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}&date=2022-08`)
+    const data2 = await response2.json()
+    // console.log(`data2 `, data2)
+    let crimesreported = data2.length
+    console.log(crimesreported)
+    setcrimenum(crimesreported)
+
     console.log(data)
     for (let j=0; j< data.engagement_methods.length; j++)
     {
@@ -56,7 +71,7 @@ const MapChart = () => {
     }
     setPoliceInfo(data)
     } catch (error) {
-      // setPoliceInfo(error.msg)
+      setPoliceInfo('no data')
       console.log(error)
     }
   }
@@ -78,6 +93,8 @@ const MapChart = () => {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   const [location, updateLocation] = useState("");
+  const [country, updateCountry] = useState("");
+  const [type, updateType] = useState("");
   const [policedata, setPoliceData] = useState([])
   const [policeInfo, setPoliceInfo] = useState({})
   const [engagementMethods, setengagementMethods] = useState({})
@@ -157,7 +174,10 @@ const MapChart = () => {
         <h2 className="modelheader" >County Info</h2>
         <p key="modalloc" className={'modalloc'}>{location}</p>
         <p>{policeInfo.url}</p>
-        <p>{policeInfo.name}</p></Modal>
+        <p>{policeInfo.name}</p>
+        {/* turnery operator V V */}
+        {crimenum === 0 ? <p>not on file</p>:<p>Crimes Reported = {crimenum}</p>}
+        </Modal>
         <div className="mapContainer">
       <ComposableMap projection="geoMercator">
         <ZoomableGroup center={position.coordinates} zoom={position.zoom} onMoveEnd={handleMoveEnd}>
@@ -215,10 +235,12 @@ const MapChart = () => {
     </div>
     <div className="infoTab">
       <h5>Info</h5>
-      <h6 key={'loc'}>{location}</h6>
-      {/* <p>{selectedCounty}</p> */}
+      <h6>Country: {country}</h6>
+      <h6 key={'loc'}>County: {location}</h6>
+      <h6>Country: {selectedCounty}</h6>
       <div className="description">
-      {policeInfo.description}
+      {policeInfo === 'no data' ? <div>force not found</div>:<div>{policeInfo.description}</div>}
+      {/* {policeInfo.description} */}
       {/* {policeInfo.url} */}
       </div>
     </div>
