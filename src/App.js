@@ -48,6 +48,7 @@ const MapChart = () => {
 
   const [city, setcity] = useState('')
   const [coords, setcoords] = useState('')
+  
   async function markerOnClick(name, coordinates){
     setcoords(coordinates)
     console.log(coords.length)
@@ -56,6 +57,7 @@ const MapChart = () => {
     console.log(coords2)
     setcoords(coords2)
     console.log(name)
+    // console.log(coordsLonLat)
     returnPoliceForce(name)
     setcity(name)
   }
@@ -71,6 +73,8 @@ const MapChart = () => {
     // console.log(geo.properties.TYPE_2);
     // openModal()
     returnPoliceForce(geo.properties.NAME_2)
+
+
     try {
     const response = await fetch(`https://data.police.uk/api/forces/${geo.properties.NAME_2.toLowerCase().split(' ').join('-')}`)
     const data = await response.json()
@@ -98,6 +102,7 @@ const MapChart = () => {
       console.log(error)
     }
   }
+
   const [position, setPosition] = useState({ coordinates: [-3, 55], zoom: 8 });
   function handleZoomIn() {
     if (position.zoom >= 60) return;
