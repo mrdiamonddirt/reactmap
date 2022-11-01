@@ -2,6 +2,7 @@ import React from "react";
 import ReactTooltip from "react-tooltip";
 import "./App.css";
 import { useState, useEffect } from "react";
+import { markers } from "./mapData";
 
 import {
   ComposableMap,
@@ -12,28 +13,18 @@ import {
 } from "react-simple-maps";
 import Modal from "react-modal";
 
-const markers = [
-  {
-    markerOffset: -15,
-    name: "London",
-    markerOffset: '-45px',
-    coordinates: [-0.118092,  51.509865]
-  },
-  { markerOffset: 15, name: "Portsmouth", fontSize:'1px', coordinates: [-1.087222, 50.805832] },
-  { markerOffset: -25, name: "York", fontSize:'1px', coordinates: [-1.080278, 	53.958332] },
-  { markerOffset: 10, name: "Lancaster", fontSize:'1px', coordinates: [-2.801000, 54.047001] },
-  { markerOffset: 15, name: "Edinburgh", fontSize:'1px', coordinates: [-3.188267, 55.953251] },
-  { markerOffset: 15, name: "Inverness", fontSize:'1px', coordinates: [-4.224721, 57.477772] },
-  { markerOffset: 15, name: "Birmingham", fontSize:'1px', coordinates: [-1.898575, 52.489471] },
-  { markerOffset: 15, name: "Bristol", fontSize:'1px', coordinates: [	-2.587910, 51.454514] },
-  { markerOffset: 15, name: "Manchester", fontSize:'1px', coordinates: [-2.244644, 53.483959] },
-  { markerOffset: 15, name: "Carlisle", fontSize:'1px', coordinates: [-2.944000, 54.890999] },
-  { markerOffset: 15, name: "Glasgow", fontSize:'1px', coordinates: [-4.251433,	55.860916] },
-  { markerOffset: 15, name: "Belfast", fontSize:'1px', coordinates: [-5.926437,	54.607868] },
-  { markerOffset: 15, name: "Cardiff", fontSize:'1px', coordinates: [-3.179090, 51.481583] },
+// const markers = [
+//   {
+//     markerOffset: -15,
+//     name: "London",
+//     markerOffset: '-45px',
+//     coordinates: [-0.118092,  51.509865]
+//   },
+  
+//   // { markerOffset: 15, name: "Portsmouth", fontSize:'1px', coordinates: [-1.087222, 50.805832] },
 
 
-];
+// ];
 
 const customStyles = {
   content: {
@@ -53,6 +44,14 @@ const geoUrl =
 
 const MapChart = () => {
   const [crimenum, setcrimenum] = useState('')
+
+
+  const [city, setcity] = useState('')
+  async function markerOnClick(name){
+    console.log(name)
+    returnPoliceForce(name)
+    setcity(name)
+  }
 
   async function onclick(geo) {
     console.log(geo);
@@ -120,8 +119,15 @@ const MapChart = () => {
  
   function returnPoliceForce(currentloc) {
     let locationLC = currentloc.toLowerCase().split(' ').join('-');
+    let cityLC = city.toLowerCase()
     for (let i = 0; i <  policedata.length; i++) {
       // console.log(policedata[i])
+      if (cityLC === policedata[i].id) {
+        console.log('match')
+      }
+      else {
+        console.log('no match')
+      }
       if (locationLC === policedata[i].id) {
         console.log('match')
         console.log(`returned ${locationLC}`)
@@ -131,9 +137,9 @@ const MapChart = () => {
         console.log(`Selected County ${selectedCounty}`)
         return
       } else {
-        console.log('no match')
-        console.log(`returned ${locationLC}`)
-        console.log(`returned police data id = ${policedata[i].id}`)
+        // console.log('no match')
+        // console.log(`returned ${locationLC}`)
+        // console.log(`returned police data id = ${policedata[i].id}`)
         updateCounty("unable to find")
       }
       
@@ -188,6 +194,7 @@ const MapChart = () => {
         <p key="modalloc" className={'modalloc'}>{location}</p>
         <p>{policeInfo.url}</p>
         <p>{policeInfo.name}</p>
+        <p>{city}</p>
         {/* turnery operator V V */}
         {crimenum === 0 ? <p>not on file</p>:<p>Crimes Reported = {crimenum}</p>}
         </Modal>
@@ -235,7 +242,7 @@ const MapChart = () => {
             }
           </Geographies>
           {markers.map(({ name, coordinates, markerOffset }) => (
-        <Marker key={name} coordinates={coordinates}>
+        <Marker key={name} coordinates={coordinates} onClick={() => markerOnClick(name)}>
           <g
             fill="none"
             stroke="#FF5533"
@@ -254,6 +261,8 @@ const MapChart = () => {
           >
             {name}
           </text>
+          
+
         </Marker> ))}
         </ZoomableGroup>
       </ComposableMap>
