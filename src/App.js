@@ -13,6 +13,8 @@ import {
 } from "react-simple-maps";
 import Modal from "react-modal";
 
+// 1 degree of lat 111km or 69 miles i degree if longitude =  54.6 miles
+
 // const markers = [
 //   {
 //     markerOffset: -15,
@@ -179,6 +181,7 @@ const MapChart = () => {
     function closeModal() {
         setIsOpen(false);
     }
+    // get police data from coords
 
     async function PoliceNeighbourhood(coords) {
         console.log("police neighbourhood");
